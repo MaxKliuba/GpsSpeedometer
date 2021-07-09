@@ -15,8 +15,8 @@ long getCurrentConnectionState() {
 
   if (gps.charsProcessed() < 10) {
     return ERROR;
-  } else if (gps.speed.isValid() && gps.time.isValid() && gps.date.isValid() 
-      && gps.date.day() != 0 && gps.date.month() != 0 && getCurrentSatellitesValue() > 0) {
+  } else if (gps.speed.isValid() && gps.time.isValid() && gps.date.isValid()
+             && gps.date.day() != 0 && gps.date.month() != 0 && getCurrentSatellitesValue() > 0) {
     return CONNECTED;
   } else {
     return CONNECTING;
@@ -75,7 +75,7 @@ void avgSpeedAndDistanceCalculate() {
       if (gps.location.isValid() && getCurrentConnectionState() == CONNECTED) {
         static double prevLat = gps.location.lat(), prevLon = gps.location.lng();
         float distanceBetween =
-            TinyGPSPlus::distanceBetween(gps.location.lat(), gps.location.lng(), prevLat, prevLon) / 1000.0f;
+          TinyGPSPlus::distanceBetween(gps.location.lat(), gps.location.lng(), prevLat, prevLon) / 1000.0f;
         prevLat = gps.location.lat();
         prevLon = gps.location.lng();
 
