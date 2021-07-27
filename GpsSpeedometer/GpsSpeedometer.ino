@@ -1,3 +1,10 @@
+/*
+ * Created by Maxim Kliuba
+ * 2021
+ * 
+ * https://github.com/MaxKliuba/GpsSpeedometer
+ */
+
 #include <TinyGPS++.h>
 #include <SoftwareSerial.h>
 #include <EasyNextionLibrary.h>
@@ -212,12 +219,6 @@ bool checkAndWriteNum(String elem, long currentVal, long &lastSentVal) {
   }
 
   return false;
-}
-
-void gpsSerialFlush() {
-  while (gpsSerial.available() > 0) {
-    char c = gpsSerial.read();
-  }
 }
 
 void trigger0() {

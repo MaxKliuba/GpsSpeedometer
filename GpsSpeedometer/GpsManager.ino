@@ -4,6 +4,12 @@ void gpsEncode() {
   }
 }
 
+void gpsSerialFlush() {
+  while (gpsSerial.available() > 0) {
+    char c = gpsSerial.read();
+  }
+}
+
 int getCurrentSatellitesValue() {
   gpsEncode();
 
