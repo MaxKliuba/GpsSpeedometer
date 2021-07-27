@@ -32,7 +32,7 @@
 #define INIT_KEY_EEPROM_ADDRESS 15
 #define ODOMETER_EEPROM_ADDRESS 20
 
-#define SLEEP_PERIOD_MS 60000         // 2 minutes
+#define SLEEP_PERIOD_MS 60000         // 1 minutes
 #define TIME_UPDATE_INTERVAL 3600000  // 1 hour
 
 TinyGPSPlus gps;
@@ -252,6 +252,10 @@ void setBribhtness(byte brightnessVal) {
 }
 
 void sleepTimerCheck() {
+  if (getCurrentSpeed() > 5) {
+    sleepTimer.reset();    
+  }
+
   if (sleepTimer.isReady()) {
     sleep();
   }

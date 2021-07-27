@@ -73,11 +73,21 @@ void avgSpeedAndDistanceCalculate() {
       avgSpeed = speedSum / speedCounter;
 
       if (gps.location.isValid() && getCurrentConnectionState() == CONNECTED) {
-        static double prevLat = gps.location.lat(), prevLon = gps.location.lng();
+        static const double LONDON_LAT = 51.508131, LONDON_LON = -0.128002;
+        double currentLat = gps.location.lat();
+        double currentLon = gps.location.lng();
+
+        if(abs(currentLat - LONDON_LAT) < 1 && abs(currentLon - LONDON_LON) < 1) {
+          // this condition should fix the bug
+          return;
+        }
+
+        static double prevLat = currentLat, prevLon = currentLon;
+
         float distanceBetween =
-          TinyGPSPlus::distanceBetween(gps.location.lat(), gps.location.lng(), prevLat, prevLon) / 1000.0f;
-        prevLat = gps.location.lat();
-        prevLon = gps.location.lng();
+          TinyGPSPlus::distanceBetween(currentLat, currentLon, prevLat, prevLon) / 1000.0f;
+        prevLat = currentLat;
+        prevLon = currentLon;
 
         currentDistance += distanceBetween;
         currentOdometerVal += distanceBetween;
